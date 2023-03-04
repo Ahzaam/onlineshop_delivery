@@ -1,0 +1,83 @@
+{
+  "project_info": {
+    "project_number": "992184554831",
+    "firebase_url": "https://onlineshop-delivery-default-rtdb.firebaseio.com",
+    "project_id": "onlineshop-delivery",
+    "storage_bucket": "onlineshop-delivery.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:992184554831:android:061a89efaa8ea49b7e613a",
+        "android_client_info": {
+          "package_name": "com.example.eshop_delivery"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "992184554831-lshk8fq8r7mariroou84uvd7jkouvr30.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCV7CVt2K2mJTO10R2tU1DrqQQ6aQV5jCs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "992184554831-lshk8fq8r7mariroou84uvd7jkouvr30.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "992184554831-2sa5aoaivs1flvc2kaneejn6orpart22.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.eshopDelivery"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:992184554831:android:c4389c4dc4e2ff8f7e613a",
+        "android_client_info": {
+          "package_name": "com.example.onlineshop_delivery"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "992184554831-lshk8fq8r7mariroou84uvd7jkouvr30.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCV7CVt2K2mJTO10R2tU1DrqQQ6aQV5jCs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "992184554831-lshk8fq8r7mariroou84uvd7jkouvr30.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "992184554831-2sa5aoaivs1flvc2kaneejn6orpart22.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.eshopDelivery"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
