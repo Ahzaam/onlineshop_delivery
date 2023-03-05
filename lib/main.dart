@@ -1,12 +1,14 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:onlineshop_delivery/screens/home.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'package:geolocator/geolocator.dart';
+
+import 'package:onlineshop_delivery/screens/home.dart';
+import 'package:onlineshop_delivery/screens/map.dart';
 
 Future main() async {
   await Firebase.initializeApp(
@@ -43,10 +45,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static List<Widget> _widgetOptions = <Widget>[
     AppHome(),
-    Text(
-      'Index 1: Business',
-      style: optionStyle,
-    ),
+    MyMap(),
     Text(
       'Index 2: School',
       style: optionStyle,
