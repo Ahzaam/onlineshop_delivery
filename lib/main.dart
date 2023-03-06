@@ -4,7 +4,9 @@ import 'screens/map.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'package:wakelock/wakelock.dart';
-// ...
+import 'package:onlineshop_delivery/screens/orders.dart';
+
+import 'package:onlineshop_delivery/screens/neworderring.dart';
 
 // The following line will enable the Android and iOS wakelock.
 
@@ -41,7 +43,8 @@ class _BottomNavigationState extends State<BottomNavigation> {
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
-    Orders(),
+    // Orders(),
+    NewOrderRing(),
     Text(
       'Index 2: School',
       style: optionStyle,
