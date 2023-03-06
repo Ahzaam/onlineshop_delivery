@@ -43,7 +43,6 @@ Future<Stream<Position>> determinePosition() async {
 
   await Geolocator.getPositionStream(locationSettings: locationSettings)
       .listen((position_data) {
-    print(position_data);
     save(position_data);
   });
   // When we reach here, permissions are granted and we can

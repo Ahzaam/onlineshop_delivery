@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:onlineshop_delivery/screens/displayorders.dart';
+
 class Orders extends StatefulWidget {
   const Orders({super.key});
 
@@ -10,21 +12,12 @@ class Orders extends StatefulWidget {
 class _OrdersState extends State<Orders> {
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: const <Widget>[
-        Expanded(
-          child: ListTile(
-            leading: FlutterLogo(),
-            title: Text('These ListTiles are expanded '),
-          ),
-        ),
-        Expanded(
-          child: ListTile(
-            trailing: FlutterLogo(),
-            title: Text('to fill the available space.'),
-          ),
-        ),
-      ],
+    return Container(
+      margin: EdgeInsets.only(top: 30),
+      child: SingleChildScrollView(
+          child: Column(
+        children: [for (var i = 0; i < 40; i++) DisplayOrder()],
+      )),
     );
   }
 }
