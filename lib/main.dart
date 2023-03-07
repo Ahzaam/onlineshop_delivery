@@ -43,12 +43,8 @@ class _BottomNavigationState extends State<BottomNavigation> {
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
-    // Orders(),
+    Orders(),
     NewOrderRing(),
-    Text(
-      'Index 2: School',
-      style: optionStyle,
-    ),
     Maps(),
   ];
 

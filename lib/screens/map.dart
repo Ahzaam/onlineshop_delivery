@@ -18,58 +18,65 @@ class NavMap extends StatefulWidget {
 }
 
 LatLng position = LatLng(7, 80);
+bool make_center = true;
+MapController _mapController = MapController();
 
 class _NavMapState extends State<NavMap> {
   @override
   Widget build(BuildContext context) {
-    MapController _mapController = MapController();
-
     determinePosition().then((value) => {
           value.listen((position_data) {
             setState(() {
               if (position != null) {
                 position =
                     LatLng(position_data.latitude, position_data.longitude);
-                _mapController.move(position, 16);
+                if (make_center) {
+                  _mapController.move(position, 16);
+                }
               }
             });
           })
         });
 
     final String assetName = 'assets/marker.png';
-    return FlutterMap(
-      mapController: _mapController,
-      options: MapOptions(
-        minZoom: 5,
-        maxZoom: 18,
-        zoom: 13,
-        center: LatLng(position.latitude, position.longitude),
+    return Listener(
+      onPointerMove: (_) {
+        make_center = false;
+      },
+      child: FlutterMap(
+        mapController: _mapController,
+        options: MapOptions(
+          minZoom: 5,
+          maxZoom: 18,
+          zoom: 13,
+          center: LatLng(position.latitude, position.longitude),
+        ),
+        layers: [
+          TileLayerOptions(
+            urlTemplate:
+                "https://api.mapbox.com/styles/v1/ahzaam/{mapStyleId}/tiles/256/{z}/{x}/{y}@2x?access_token={accessToken}",
+            additionalOptions: {
+              'mapStyleId': AppConstants.mapBoxStyleId,
+              'accessToken': AppConstants.mapBoxAccessToken,
+            },
+          ),
+          MarkerLayerOptions(
+            markers: [
+              Marker(
+                height: 40.0,
+                width: 40.0,
+                point: LatLng(position.latitude, position.longitude),
+                builder: (_) {
+                  return GestureDetector(
+                    onTap: () {},
+                    child: Image.asset(assetName),
+                  );
+                },
+              ),
+            ],
+          ),
+        ],
       ),
-      layers: [
-        TileLayerOptions(
-          urlTemplate:
-              "https://api.mapbox.com/styles/v1/ahzaam/{mapStyleId}/tiles/256/{z}/{x}/{y}@2x?access_token={accessToken}",
-          additionalOptions: {
-            'mapStyleId': AppConstants.mapBoxStyleId,
-            'accessToken': AppConstants.mapBoxAccessToken,
-          },
-        ),
-        MarkerLayerOptions(
-          markers: [
-            Marker(
-              height: 40.0,
-              width: 40.0,
-              point: LatLng(position.latitude, position.longitude),
-              builder: (_) {
-                return GestureDetector(
-                  onTap: () {},
-                  child: Image.asset(assetName),
-                );
-              },
-            ),
-          ],
-        ),
-      ],
     );
   }
 }
@@ -85,68 +92,64 @@ class _MapsDataState extends State<MapsData> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 100,
-      margin: const EdgeInsets.only(top: 50),
-      alignment: FractionalOffset.bottomCenter,
-      child: Row(children: [
-        Expanded(
-          child: Container(
-            margin: EdgeInsets.all(10),
-            padding: EdgeInsets.all(10),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                gradient: LinearGradient(
-                  begin: Alignment.bottomLeft,
-                  end: Alignment.topRight,
-                  colors: [
-                    Colors.green.shade500,
-                    Colors.green.shade800,
+        height: 100,
+        margin: const EdgeInsets.only(top: 50, left: 10, right: 10, bottom: 10),
+        alignment: FractionalOffset.bottomCenter,
+        decoration: BoxDecoration(
+            color: Color.fromARGB(255, 28, 28, 28),
+            borderRadius: BorderRadius.circular(20)),
+        child: Row(
+          children: [
+            Expanded(
+                flex: 1,
+                child: Column(
+                  children: [
+                    Container(
+                      margin: EdgeInsets.only(top: 15),
+                      child: const Icon(
+                        Icons.view_in_ar_outlined,
+                        size: 45,
+                        color: Colors.white,
+                      ),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(top: 4),
+                      child: const Text(
+                        '800m',
+                        style: TextStyle(fontSize: 18, color: Colors.blue),
+                      ),
+                    ),
                   ],
                 )),
-            child: Center(
-                child: Column(
-              children: [
-                Text(
-                  '5/20',
-                  style: TextStyle(color: Colors.white, fontSize: 35),
-                  textAlign: TextAlign.center,
-                ),
-                Text('Delivered',
-                    style: TextStyle(color: Colors.white, fontSize: 16))
-              ],
-            )),
-          ),
-        ),
-        Expanded(
-          child: Container(
-            margin: EdgeInsets.all(10),
-            padding: EdgeInsets.all(10),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                gradient: LinearGradient(
-                  begin: Alignment.bottomLeft,
-                  end: Alignment.topRight,
-                  colors: [
-                    Colors.green.shade500,
-                    Colors.green.shade800,
-                  ],
+            Expanded(
+                flex: 4,
+                child: Container(
+                  margin: const EdgeInsets.all(10),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Column(children: [
+                      Container(
+                        margin: const EdgeInsets.only(top: 10, left: 10),
+                        child: const Align(
+                          alignment: Alignment.topLeft,
+                          child: Text(
+                            'Next Delivery . Go Strait in A18 Road',
+                            style: TextStyle(fontSize: 14, color: Colors.white),
+                          ),
+                        ),
+                      ),
+                      Container(
+                        margin: const EdgeInsets.only(top: 4),
+                        child: const Text(
+                          'B92 Babila, Gampola',
+                          style: TextStyle(fontSize: 25, color: Colors.white),
+                        ),
+                      ),
+                    ]),
+                  ),
                 )),
-            child: Center(
-                child: Column(
-              children: [
-                Text(
-                  '800m',
-                  style: TextStyle(color: Colors.white, fontSize: 35),
-                  textAlign: TextAlign.center,
-                ),
-                Text('Next Delivery',
-                    style: TextStyle(color: Colors.white, fontSize: 16))
-              ],
-            )),
-          ),
-        )
-      ]),
-    );
+          ],
+        ));
   }
 }
 
@@ -162,16 +165,9 @@ bool expand = false;
 class _AddressState extends State<Address> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Expanded(
-          child: Container(
-            color: Colors.transparent,
-          ),
-        ),
-
-        /// Below container will go to bottom
-        GestureDetector(
+    return Align(
+      alignment: Alignment.bottomCenter,
+      child: GestureDetector(
           onTap: () {
             setState(() {
               expand = !expand;
@@ -179,55 +175,69 @@ class _AddressState extends State<Address> {
           },
           child: AnimatedContainer(
               duration: const Duration(milliseconds: 200),
-              height: expand ? 200 : 57,
+              height: expand ? 500 : 180,
               width: double.infinity,
               padding: const EdgeInsets.all(8),
-              margin: const EdgeInsets.all(5),
+              margin: const EdgeInsets.all(10),
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  gradient: LinearGradient(
-                    begin: Alignment.bottomLeft,
-                    end: Alignment.topRight,
-                    colors: [
-                      Colors.blue.shade500,
-                      Colors.blue.shade800,
-                    ],
-                  )),
+                  borderRadius: BorderRadius.circular(20),
+                  color: const Color.fromARGB(255, 28, 28, 28)),
               child: Column(
                 children: [
-                  Expanded(
-                      child: Column(
-                    children: [
-                      Align(
-                          alignment: Alignment.centerLeft,
-                          child: Container(
-                            padding: const EdgeInsets.only(left: 8),
-                            child: const Text(
-                              'Next Address',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 12,
+                  Container(
+                    margin: EdgeInsets.only(top: 10),
+                    child: Row(
+                      children: [
+                        Expanded(
+                            flex: 4,
+                            child: RichText(
+                                text: TextSpan(
+                              // Note: Styles for TextSpans must be explicitly defined.
+                              // Child text spans will inherit styles from parent
+                              style: const TextStyle(
+                                fontSize: 25,
+                                color: Colors.green,
                               ),
-                            ),
-                          )),
-                      const Text(
-                        'D72 Hapugatalawa Nawalapitiya',
-                        style: TextStyle(color: Colors.white, fontSize: 22),
-                      ),
-                    ],
-                  )),
-                  Visibility(
-                    maintainState: true,
-                    visible: expand,
-                    child: const Text(
-                      'Order Id : b2yu3f43BH22eby',
-                      style: TextStyle(color: Colors.white, fontSize: 25),
+                              children: <TextSpan>[
+                                const TextSpan(text: '19 '),
+                                const TextSpan(
+                                    text: 'min',
+                                    style: TextStyle(fontSize: 25)),
+                                TextSpan(
+                                    text: ' ( 7.3 km )',
+                                    style: TextStyle(
+                                        fontSize: 25,
+                                        color: Colors.grey.shade600)),
+                              ],
+                            ))),
+                        Expanded(
+                            child: MaterialButton(
+                          onPressed: () {
+                            make_center = true;
+                            setState(() {
+                              _mapController.move(position, 16);
+                            });
+                          },
+                          color: Colors.blue,
+                          textColor: Colors.white,
+                          padding: const EdgeInsets.all(16),
+                          shape: const CircleBorder(),
+                          child: const Icon(
+                            Icons.navigation_outlined,
+                            size: 24,
+                          ),
+                        ))
+                      ],
                     ),
                   ),
+                  Divider(
+                    height: 30,
+                    thickness: 1,
+                    endIndent: 0,
+                    color: Colors.grey.shade800,
+                  ),
                 ],
-              )),
-        )
-      ],
+              ))),
     );
   }
 }

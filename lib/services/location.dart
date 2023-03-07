@@ -38,21 +38,19 @@ Future<Stream<Position>> determinePosition() async {
 
   final LocationSettings locationSettings = LocationSettings(
     accuracy: LocationAccuracy.bestForNavigation,
-    distanceFilter: 50,
+    distanceFilter: 0,
   );
 
   await Geolocator.getPositionStream(locationSettings: locationSettings)
       .listen((position_data) {
-    save(position_data);
+    save(position_data.toJson());
   });
   // When we reach here, permissions are granted and we can
   // continue accessing the position of the device.
   return await Geolocator.getPositionStream(locationSettings: locationSettings);
 }
 
-Future save(Position location) async {
+Future save(Map<String, dynamic> location) async {
   final resldoc = FirebaseDatabase.instance;
-  resldoc
-      .ref('mylocation')
-      .set({"lat": location.latitude, "lon": location.longitude});
+  resldoc.ref('mylocation').set(location);
 }
